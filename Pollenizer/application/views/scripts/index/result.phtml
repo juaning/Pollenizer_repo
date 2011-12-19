@@ -1,0 +1,45 @@
+<!-- Back button -->
+<a href="<?php echo $this->url(array('controller' => 'index', 'action' => 'query')); ?>">back to search</a>
+
+<!-- Header info -->
+<h2>Found <?php echo number_format($this->total); ?> results to: <?php echo $this->query; ?></h2>
+<caption>Photos from <a
+ href="http://flickr.com/">Flickr</a></caption>
+ 
+<table>
+<!-- Iterates to display thumbnails -->
+<tbody>
+<?php
+
+foreach ($this->results as $index=>$result) {
+    // Begin column
+    if ( $index % $this->columns == 0 ) {
+      echo '<tr>';
+    }
+    
+
+    $thumbnail = '<img src="' . $result->Square->uri .
+                 '" width="75" height="75" />';
+    echo '<td><a href="' . $this->url(array('controller' => 'index', 'action' => 'full', 'imgId' => $result->id, 'ownername' => $result->ownername
+    									, 'datetaken' => $result->datetaken)) .
+         '" title="full-size" target="_Blank">' . $thumbnail . '</a><br />';
+    echo '<small>by <a href="http://www.flickr.com/photos/' .
+ $this->escape($result->ownername) .
+         '" title="Owner">' . htmlentities(utf8_decode($result->ownername)) .
+         '</a> on ' . $result->datetaken .
+ '</small></td>';
+    
+    // Close column
+    if ( $index % $this->columns == $this->columns - 1 ) {
+      echo '</tr>';
+    }
+}
+?>
+</tbody>
+</table>
+<br />
+<br />
+<!-- Pagination -->
+<div id="pagination">
+<?= $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
+</div>

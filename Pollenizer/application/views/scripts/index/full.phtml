@@ -1,0 +1,20 @@
+<div id="linkContainer">
+	<a href="javascript:window.close();">close</a>
+</div>
+<!-- Display image and some data -->
+<div id="imgContainer">
+<?php 
+$result = $this->result;
+
+$thumbnail = '<img src="' . $result['Large']->uri .
+                 '" width="'.$result['Large']->width.'" height="'.$result['Large']->height.'" />';
+    echo '<td><a href="' . $result['Large']->clickUri .
+         '" title="to Flickr" target="_Blank">' . $thumbnail . '</a><br />';
+    echo '<small>by <a href="http://www.flickr.com/photos/' .
+ $this->escape($this->ownername) .
+         '" title="Owner">' . htmlentities(utf8_decode($this->ownername)) .
+         '</a> on ' . $this->datetaken .
+ '</small>'
+ 
+ ?>
+ </div>
